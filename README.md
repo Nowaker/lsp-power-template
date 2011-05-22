@@ -116,9 +116,9 @@ Spring Web MVC example:
     @RequestMapping("/articles")
     public ModelAndView show() {
         final List<Article> articles = articleDao.findAll();
-    	  final ModelAndView mav = new ModelAndView("articles.lsp");
+        final ModelAndView mav = new ModelAndView("articles.lsp");
         mav.addObject("articles", articles);
-	      // ...
+        // ...
         return mav;
     }
 
