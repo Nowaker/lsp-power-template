@@ -55,7 +55,6 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<!--<finalName>openrepublik-web</finalName>-->
 
 		<plugins>
 			<plugin>
