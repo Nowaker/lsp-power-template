@@ -40,12 +40,14 @@
 
 package nu.staldal.lsp.wrapper;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Implementation of read only Map for a Java bean. This class is <em>not</em>
@@ -58,52 +60,40 @@ public class ReadonlyBeanMap implements Map<String, Object> {
 
     private final Map<String, Member> cache;
 
-    /**
-     * Constructor.
-     * 
-     * @param bean  the Java bean to wrap
-     */
     public ReadonlyBeanMap(Object bean) {
         this.bean = bean;
         this.cache = new HashMap<String, Member>();        
     }
 
-    private Member lookupMember(String property) {
-        if (property.length() == 0) {
-            return null;
-        }
-        try {
-            String methodName = "get"
-                    + Character.toUpperCase(property.charAt(0))
-                    + property.substring(1);
-            return bean.getClass().getMethod(methodName);
-        }
-        catch (SecurityException e) {
-            throw new RuntimeException(e);
-        }
-        catch (NoSuchMethodException e) {
-            try {
-                String methodName = "is"
-                        + Character.toUpperCase(property.charAt(0))
-                        + property.substring(1);
-                return bean.getClass().getMethod(methodName);
-            }
-            catch (SecurityException ee) {
-                throw new RuntimeException(ee);
-            }
-            catch (NoSuchMethodException ee) {
-                try {
-                    return bean.getClass().getField(property);
-                }
-                catch (SecurityException eee) {
-                    throw new RuntimeException(eee);
-                }
-                catch (NoSuchFieldException eee) {
-                    return null;
-                }
-            }
-        }
-    }
+	private Member lookupMember(String property) {
+		if (property.isEmpty()) {
+			return null;
+		}
+		return tryToLookupMember(property, "get", "is");
+	}
+
+	private Member tryToLookupMember(final String property, final String... prefixes) {
+		final Class<? extends Object> beanClass = bean.getClass();
+
+		for (final String prefix : prefixes) {
+			try {
+				final String methodName = prefix + StringUtils.capitalize(property);
+				return beanClass.getMethod(methodName);
+			} catch (NoSuchMethodException ignored) {
+			}
+		}
+
+		try {
+			return beanClass.getField(property);
+		} catch (NoSuchFieldException ignored) {
+		}
+
+		try {
+			return beanClass.getMethod(property);
+		} catch (NoSuchMethodException e) {
+			return null;
+		}
+	}
 
     private Member getMember(String property) {
         Member member = cache.get(property);
