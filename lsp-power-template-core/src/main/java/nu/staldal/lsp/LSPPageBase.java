@@ -40,16 +40,30 @@
 
 package nu.staldal.lsp;
 
-import java.io.*;
-import java.util.*;
-
-import javax.xml.transform.Result;
-import org.xml.sax.*;
+import nu.staldal.lsp.wrapper.BooleanArrayCollection;
+import nu.staldal.lsp.wrapper.DoubleArrayCollection;
+import nu.staldal.lsp.wrapper.FloatArrayCollection;
+import nu.staldal.lsp.wrapper.IntArrayCollection;
+import nu.staldal.lsp.wrapper.LSPResultSetTupleList;
+import nu.staldal.lsp.wrapper.LongArrayCollection;
+import nu.staldal.lsp.wrapper.ReadonlyBeanMap;
+import nu.staldal.lsp.wrapper.ResourceBundleTuple;
+import nu.staldal.lsp.wrapper.ShortArrayCollection;
+import nu.staldal.util.Environment;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import nu.staldal.util.*;
-
-import nu.staldal.lsp.wrapper.*;
+import javax.xml.transform.Result;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 
 /**
@@ -333,9 +347,7 @@ public abstract class LSPPageBase implements LSPPage
         }
 		else
 		{
-			throw new LSPException(
-				"Convert to string not implemented for type "
-				+ value.getClass().getName());
+			return value.toString();
 		}
 	}
 
