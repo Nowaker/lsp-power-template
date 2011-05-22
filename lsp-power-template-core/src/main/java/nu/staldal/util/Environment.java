@@ -194,31 +194,24 @@ public class Environment<K,V>
 	{
 		private final Frame<K,V> parent;
 		private final Map<K,V> map;
-		
-        Frame()
-        {
-            parent = null;
-            map = new HashMap<K,V>();
-        }   
 
-		Frame(Frame<K,V> p)
-		{
-			parent = p;
-			map = new HashMap<K,V>();
+		Frame() {
+			this(null, null);
 		}
-	
-		Frame(Map<K,V> initial)
-		{
-			parent = null;
-            map = initial;
-		}	
 
-        Frame(Frame<K,V> p, Map<K,V> initial)
-        {
-            parent = p;
-            map = initial;
-        }
-    
+		Frame(Frame<K, V> p) {
+			this(p, null);
+		}
+
+		Frame(Map<K, V> initial) {
+			this(null, initial);
+		}
+
+		Frame(Frame<K, V> p, Map<K, V> initial) {
+			parent = p;
+			map = initial != null ? initial : new HashMap<K, V>();
+		}
+
 		Frame<K,V> getParent()
 		{
 			return parent;	
