@@ -40,13 +40,16 @@
 
 package nu.staldal.lsp.maverick;
 
-import javax.xml.transform.*;
-
-import org.infohazard.maverick.flow.*;
+import nu.staldal.lsp.servlet.LSPManager;
+import org.infohazard.maverick.flow.ConfigException;
+import org.infohazard.maverick.flow.Transform;
+import org.infohazard.maverick.flow.TransformFactory;
 import org.infohazard.maverick.util.XML;
 import org.jdom.Element;
 
-import nu.staldal.lsp.servlet.LSPManager;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.xml.transform.URIResolver;
 
 
 /**
@@ -61,7 +64,7 @@ public class XSLTransformFactory implements TransformFactory
     protected LSPManager lspManager;
     
     
-	public void init(Element factoryNode, ServletConfig servletCfg) 
+	public void init(Element factoryNode, ServletConfig servletCfg)
         throws ConfigException
 	{
 		this.servletContext = servletCfg.getServletContext();

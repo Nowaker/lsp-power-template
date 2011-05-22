@@ -40,13 +40,15 @@
 
 package nu.staldal.lsp.compiler;
 
-import java.io.*;
-
-import org.apache.tools.ant.*;
+import nu.staldal.lsp.LSPException;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 
-import nu.staldal.lsp.*;
+import java.io.File;
  
 
 /**

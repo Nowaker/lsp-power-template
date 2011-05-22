@@ -10,22 +10,22 @@
 	</parent>
 
 	<groupId>net.nowaker.lsp</groupId>
-	<artifactId>lsp-power-template-core</artifactId>
+	<artifactId>lsp-power-template-ant</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>lsp-power-template-core</name>
+	<name>lsp-power-template-ant</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.bcel</groupId>
-			<artifactId>bcel</artifactId>
-			<version>5.2</version>
+			<groupId>net.nowaker.lsp</groupId>
+			<artifactId>lsp-power-template-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.8.2</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -55,6 +55,7 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<!--<finalName>openrepublik-web</finalName>-->
 
 		<plugins>
 			<plugin>
@@ -83,13 +84,13 @@
 				<version>1.4.3</version>
 				<executions>
 					<execution>
-						<phase>validate</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
+							<outputDirectory>src/main/java</outputDirectory>
 							<lexDefinitions>
-								<lexDefinition>src/main/lex</lexDefinition>
+								<lexDefinition>src/main/java</lexDefinition>
 							</lexDefinitions>
 						</configuration>
 					</execution>
